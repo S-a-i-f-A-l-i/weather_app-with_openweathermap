@@ -5,6 +5,7 @@ import Input from "./components/Input";
 import CurrentWeather from "./components/CurrentWeather";
 import NextFiveDay from "./components/NextFiveDay";
 import TodayForest from "./components/TodayForest";
+import AirConditions from "./components/AirConditions";
 
 function App() {
   const [input, setInput] = useState("");
@@ -146,10 +147,20 @@ function App() {
             icon={weather.main}
           />
         )}
+        {loading ? (
+          <div>Loading</div>
+        ) : (
+          <AirConditions
+            wind={weather.wind}
+            visibility={weather.visibility}
+            clouds={weather.clouds}
+            temp={weather.main}
+          />
+        )}
         {loadingNext ? (
           <div>Loading</div>
         ) : (
-          <TodayForest list={weatherNext.list.splice(0, 9)} />
+          <TodayForest list={weatherNext.list.splice(0, 8)} />
         )}
       </div>
       <div style={{ flex: "4" }}>

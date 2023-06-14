@@ -10,8 +10,15 @@ const TodayForest = ({ list }) => {
       <div
         style={{
           display: "flex",
-          overflowY: "scroll",
-          justifyContent: "flex-start",
+          overflowX: "auto",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+          "&::WebkitScrollbar": {
+            width: "0px",
+            height: "0px",
+            display: "none",
+          },
         }}
       >
         {list &&

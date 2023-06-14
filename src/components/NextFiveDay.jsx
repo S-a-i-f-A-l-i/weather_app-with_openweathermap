@@ -8,10 +8,16 @@ const NextFiveDay = ({ list }) => {
   return (
     <div
       style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "10px",
+        height: "max-content",
         margin: "20px",
+        marginTop: "79px",
         backgroundColor: "black",
         padding: "10px 5px",
-        height: "100vh",
         borderRadius: "15px",
       }}
     >
