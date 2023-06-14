@@ -2,6 +2,7 @@
   text-align: center;
   background-color: #282c34;
   min-height: 100vh;
+  width: auto;
   display: flex;
   /* flex-direction: column; */
   /* align-items: center; */
@@ -16,8 +17,6 @@
 }
 @media screen and (max-width:500px) {
   .App{
-    /* display:"flex"; */
-    /* flex-direction:"column" */
     display: flex;
     flex-direction: column;
   }

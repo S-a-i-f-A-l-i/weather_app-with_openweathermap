@@ -4,11 +4,14 @@ import "./App.css";
 import Input from "./components/Input";
 import CurrentWeather from "./components/CurrentWeather";
 import NextFiveDay from "./components/NextFiveDay";
+import TodayForest from "./components/TodayForest";
 
 function App() {
   const [input, setInput] = useState("");
   const [weather, setWeather] = useState({});
+  const [weatherNext, setWeatherNext] = useState({ list: [] });
   const [loading, setLoading] = useState(false);
+  const [loadingNext, setLoadingNext] = useState(false);
   const [latLon, setLatLon] = useState({
     lat: 0,
     lon: 0,
@@ -17,7 +20,7 @@ function App() {
     console.log("App", value);
     setInput(() => value);
   };
-  const getWeather = async () => {
+  const getCurrWeather = async () => {
     setLoading(true);
     const city = input.length !== 0 ? input : "delhi";
     console.log(
@@ -42,12 +45,34 @@ function App() {
         // `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
       );
       // console.log(resp);
-      setWeather(() => resp.data);
+      await setWeather(() => resp.data);
       console.log("In setWeather", weather);
       setLoading(() => false);
     } catch (error) {
       console.log("ERROR", error);
       setLoading(false);
+      if (+error.response.data.cod === 404) console.log("NOT Found");
+    }
+  };
+  const getNextWeather = async () => {
+    setLoadingNext(true);
+    const city = input.length !== 0 ? input : "delhi";
+    const api = `https://api.openweathermap.org/data/2.5/forecast?${
+      city === "delhi"
+        ? latLon.lat && latLon.lon
+          ? `lat=${latLon.lat}&lon=${latLon.lon}`
+          : `q=${city}`
+        : `q=${city}`
+    }&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`;
+
+    try {
+      const resp = await axios.get(api);
+      console.log("Next Res", resp.data);
+      await setWeatherNext(() => resp.data);
+      setLoadingNext(() => false);
+    } catch (error) {
+      console.log("ERROR NEXT", error);
+      setLoadingNext(false);
       if (+error.response.data.cod === 404) console.log("NOT Found");
     }
   };
@@ -101,11 +126,12 @@ function App() {
         console.log("Geolocation is not Supported");
       }
     }
-    getWeather();
+    getCurrWeather();
+    getNextWeather();
   }, [input, latLon]);
   return (
     <div className="App">
-      <div style={{ flex: "70%" }}>
+      <div style={{ flex: "6" }}>
         <Input handleSearch={handleSearch} />
         {loading ? (
           <div>Loading</div>
@@ -120,9 +146,18 @@ function App() {
             icon={weather.main}
           />
         )}
+        {loadingNext ? (
+          <div>Loading</div>
+        ) : (
+          <TodayForest list={weatherNext.list.splice(0, 9)} />
+        )}
       </div>
-      <div style={{ flex: "30%" }}>
-        <NextFiveDay />
+      <div style={{ flex: "4" }}>
+        {loadingNext ? (
+          <div>Loading</div>
+        ) : (
+          <NextFiveDay list={weatherNext.list} />
+        )}
       </div>
     </div>
   );
