@@ -21,7 +21,7 @@ const NextFiveDay = ({ list }) => {
         borderRadius: "15px",
       }}
     >
-      <h3>5-DAY FORECAST</h3>
+      <h3>Upcoming DAY FORECAST</h3>
       <div>
         {list &&
           list.map((item, index) => {
