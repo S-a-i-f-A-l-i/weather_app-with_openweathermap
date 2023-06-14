@@ -7,7 +7,7 @@ const CurrentWeather = ({
   temp = { temp: 30 },
   weather = [{ main: "Rain", description: "light rain", icon: "02d" }],
 }) => {
-  console.log(weather);
+  // console.log(weather);
   return (
     <div
       style={{

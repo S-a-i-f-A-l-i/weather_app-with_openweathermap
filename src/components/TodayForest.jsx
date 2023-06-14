@@ -1,7 +1,7 @@
 import React from "react";
 
 const TodayForest = ({ list }) => {
-  console.log("list in Today Forest", list);
+  // console.log("list in Today Forest", list);
   return (
     <div
       style={{ margin: "20px", backgroundColor: "black", padding: "5px 0px" }}

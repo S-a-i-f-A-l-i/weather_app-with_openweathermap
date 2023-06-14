@@ -1,7 +1,7 @@
 import React from "react";
 
 const NextFiveDay = ({ list }) => {
-  console.log("list in NextFive", list);
+  // console.log("list in NextFive", list);
   let date = ["0000", "00", "00"];
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let flag = true;
@@ -30,14 +30,18 @@ const NextFiveDay = ({ list }) => {
             {
               /* console.log(date); */
             }
-            console.log("tempDate", tempDate, "date", date);
+            {
+              /* console.log("tempDate", tempDate, "date", date); */
+            }
             if (
               tempDate[0] > date[0] ||
               tempDate[1] > date[1] ||
               tempDate[2] > date[2]
             ) {
               flag = true;
-              console.log("flag true");
+              {
+                /* console.log("flag true"); */
+              }
               date = tempDate;
             } else {
               flag = false;

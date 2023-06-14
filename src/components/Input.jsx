@@ -6,7 +6,7 @@ const Input = ({ handleSearch }) => {
   const debounce = () => {
     return (e) => {
       setInput(() => e.target.value);
-      console.log(e.target.value);
+      // console.log(e.target.value);
       clearTimeout(timerId.current);
       timerId.current = setTimeout(() => {
         handleSearch(e.target.value);
